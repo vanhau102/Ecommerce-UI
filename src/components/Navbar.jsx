@@ -4,6 +4,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCart from '@mui/icons-material/ShoppingCartOutlined';
 import { Badge } from '@mui/material';
 import { mobile } from '../responsive';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Container = styled.div`
     height: 60px;
@@ -70,6 +72,7 @@ const MenuItem = styled.div`
 `;
 
 const Navbar = () => {
+    const quantity = useSelector((state) => state.cart.quantity);
     return (
         <Container className='navbar-container'>
             <Wrapper>
@@ -83,16 +86,22 @@ const Navbar = () => {
                     </SearchContainer>
                 </Left>
                 <Center>
-                    <Logo>H-Shop</Logo>
+                    <Link to='/'>
+                        <Logo>H-Shop</Logo>
+                    </Link>
                 </Center>
                 <Right>
                     <MenuItem>REGISTER</MenuItem>
-                    <MenuItem>SIGN IN</MenuItem>
-                    <MenuItem>
-                        <Badge badgeContent={4} color='primary'>
-                            <ShoppingCart />
-                        </Badge>
-                    </MenuItem>
+                    <Link to='/login'>
+                        <MenuItem>SIGN IN</MenuItem>
+                    </Link>
+                    <Link to='/cart'>
+                        <MenuItem>
+                            <Badge badgeContent={quantity} color='primary'>
+                                <ShoppingCart />
+                            </Badge>
+                        </MenuItem>
+                    </Link>
                 </Right>
             </Wrapper>
         </Container>
